@@ -11,7 +11,7 @@ export default function Browse() {
       return;
     }
 
-    fetch("http://localhost:5001/profiles", {
+    const res = await fetch("https://your-backend-url.onrender.com/signup", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
