@@ -1,3 +1,10 @@
+<img
+  src="https://images.unsplash.com/photo-1601071961703-8f84b37bfe52?auto=format&fit=crop&w=1350&q=80"
+  alt="Shaadi Celebration"
+  className="w-full h-64 object-cover rounded-lg shadow-md mb-6"
+/>
+
+
 import { useEffect, useState } from "react";
 
 export default function Browse() {
