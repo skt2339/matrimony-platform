@@ -6,27 +6,24 @@ export default function Browse() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    if (!token) {
-      alert("You're not logged in!");
-      return;
-    }
-
-    const res = await fetch("https://your-backend-url.onrender.com/signup", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setProfiles(data.profiles || []);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Fetch error:", err);
-        alert("Failed to fetch profiles");
-        setLoading(false);
+  const fetchProfiles = async () => {
+    try {
+      const res = await fetch("https://your-backend-url.onrender.com/profiles", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
-  }, [token]);
+      const data = await res.json();
+      setProfiles(data.profiles || []);
+    } catch (err) {
+      console.error("Error fetching profiles:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchProfiles();
+}, [token]);
 
   if (loading) {
     return <div className="text-center mt-10 text-lg">Loading profiles...</div>;
