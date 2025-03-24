@@ -1,30 +1,32 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Signup from "./Signup";
 import Login from "./Login";
 import ProfileSetup from "./ProfileSetup";
 import Browse from "./Browse";
+import Navbar from "./components/Navbar";
 
 function App() {
   const isLoggedIn = !!localStorage.getItem("token");
 
   return (
     <Router>
-      <div>
-        {/* Always-visible navbar */}
-        <div style={{ padding: "1rem", background: "#f0f0f0", textAlign: "center" }}>
-          <Link to="/signup" style={{ margin: "0 10px", color: "#2563eb", textDecoration: "underline" }}>Signup</Link>
-          <Link to="/login" style={{ margin: "0 10px", color: "#2563eb", textDecoration: "underline" }}>Login</Link>
-          <Link to="/profile" style={{ margin: "0 10px", color: "#2563eb", textDecoration: "underline" }}>Profile</Link>
-          <Link to="/browse" style={{ margin: "0 10px", color: "#2563eb", textDecoration: "underline" }}>Browse</Link>
-        </div>
+      <div className="bg-gray-50 min-h-screen">
+        {/* Shared navbar on all pages */}
+        <Navbar />
 
-        {/* Route-based rendering */}
+        {/* Routes */}
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={isLoggedIn ? <ProfileSetup /> : <Navigate to="/login" />} />
-          <Route path="/browse" element={isLoggedIn ? <Browse /> : <Navigate to="/login" />} />
+          <Route
+            path="/profile"
+            element={isLoggedIn ? <ProfileSetup /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/browse"
+            element={isLoggedIn ? <Browse /> : <Navigate to="/login" />}
+          />
         </Routes>
       </div>
     </Router>
